@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Tetris</string>
-    <string name="g1">G1</string>
-    <string name="g2">G2</string>
-    <string name="g3">G3</string>
+    <string name="button_menu1">Empezar juego</string>
+    <string name="button_menu2">Ver puntajes</string>
+
 
 </resources>
