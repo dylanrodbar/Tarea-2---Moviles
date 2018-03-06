@@ -17,37 +17,26 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.466">
 
-        <TextView
-            android:id="@+id/textV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:text="Hello World!"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <Button
             android:id="@+id/buttonMenu1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="158dp"
-            android:layout_marginEnd="39dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="103dp"
             android:background="@drawable/button_shape"
+            android:onClick="buttonMenu1Clicked"
             android:text="@string/button_menu1" />
 
         <Button
             android:id="@+id/buttonMenu2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/buttonMenu1"
             android:layout_alignStart="@+id/buttonMenu1"
-            android:layout_marginBottom="24dp"
+            android:layout_alignTop="@+id/buttonMenu1"
+            android:layout_marginTop="159dp"
             android:background="@drawable/button_shape"
+            android:onClick="buttonMenu2Clicked"
             android:text="@string/button_menu2" />
     </RelativeLayout>
 
