@@ -6,7 +6,27 @@ package com.example.dylanrodbar.tetris;
 
 public class PiezaO extends Pieza {
     @Override
+    public void cambiarTipoBloque() {
+
+    }
+
+    @Override
+    public void asignarValoresBloques() {
+
+    }
+
+    @Override
     public void actualizarBloqueBajada() {
+
+    }
+
+    @Override
+    public void actualizarBloqueDerecha() {
+
+    }
+
+    @Override
+    public void actualizarBloqueIzquierda() {
 
     }
 
