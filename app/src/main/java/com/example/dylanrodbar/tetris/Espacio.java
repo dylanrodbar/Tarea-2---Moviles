@@ -8,7 +8,9 @@ public class Espacio {
     private boolean ocupado;
     private Bloque bloque;
 
-    public Espacio() {}
+    public Espacio() {
+        this.ocupado = false;
+    }
 
     public void setOcupado() {
         ocupado = !ocupado;

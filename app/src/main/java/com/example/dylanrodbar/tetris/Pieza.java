@@ -16,13 +16,16 @@ public abstract class Pieza {
 
     public Pieza(){
         tipo = 0;
+        for (int i = 0; i < 4; i++){
+            tipoPiezas[i] = new TipoPieza();
+        }
     }
 
     /*Método que actualiza el valor y de la pieza en +1*/
     public void actualizarBloqueBajada(){
         for(int i = 0; i < 4; i++) {
             for(int j = 0; j < 4; j++) {
-                tipoPiezas[i].getPosiciones()[j].setY(1);
+                tipoPiezas[i].getPosiciones()[j].setX(1);
 
             }
         }
@@ -41,6 +44,22 @@ public abstract class Pieza {
 
         bloque4.setX(tipoPiezas[tipo].getPosiciones()[3].getX());
         bloque4.setY(tipoPiezas[tipo].getPosiciones()[3].getY());
+    }
+
+    public Bloque getBloque1(){
+        return bloque1;
+    }
+
+    public Bloque getBloque2(){
+        return bloque2;
+    }
+
+    public Bloque getBloque3(){
+        return bloque3;
+    }
+
+    public Bloque getBloque4(){
+        return bloque4;
     }
 
 
@@ -65,7 +84,7 @@ public abstract class Pieza {
         return bloque1.getY();
     }
 
-    public int getyBloque2() {
+    public int getYBloque2() {
         return bloque2.getY();
     }
 
@@ -83,7 +102,7 @@ public abstract class Pieza {
     public void actualizarBloqueDerecha() {
         for(int i = 0; i < 4; i++) {
             for(int j = 0; j < 4; j++) {
-                tipoPiezas[i].getPosiciones()[j].setX(1);
+                tipoPiezas[i].getPosiciones()[j].setY(1);
 
             }
         }
@@ -93,7 +112,7 @@ public abstract class Pieza {
     public void actualizarBloqueIzquierda() {
         for(int i = 0; i < 4; i++) {
             for(int j = 0; j < 4; j++) {
-                tipoPiezas[i].getPosiciones()[j].setX(-1);
+                tipoPiezas[i].getPosiciones()[j].setY(-1);
             }
         }
     }
