@@ -12,6 +12,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
 
     private GestureDetectorCompat gestureDetector;
+
     public static final String EXTRA_MESSAGE = "com.example.dylanrodbar.tetris.MESSAGE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {

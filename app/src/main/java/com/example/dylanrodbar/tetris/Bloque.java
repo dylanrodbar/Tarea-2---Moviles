@@ -12,11 +12,8 @@ public class Bloque {
 
     public Bloque() {}
 
-    public Bloque(int x, int y, String color, String colorHex) {
-        this.x = x;
-        this.y = y;
+    public Bloque(String color) {
         this.color = color;
-        this.colorHex = colorHex;
     }
 
     public void actualizarPosicion(int x, int y){

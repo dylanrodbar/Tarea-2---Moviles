@@ -6,29 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.dylanrodbar.tetris.TetrisJuego">
 
-    <GridLayout
-        android:id="@+id/gridLayoutTetris"
-        android:layout_width="245dp"
-        android:layout_height="480dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:columnCount="12"
-        android:rowCount="24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.134"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
 
-
-
-
-
-
-    </GridLayout>
 
     <TextView
         android:id="@+id/textViewTetris1"
@@ -51,4 +29,23 @@
         android:text="@string/message_tetris2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewTetris1" />
+
+    <TableLayout
+        android:id="@+id/tableLayoutTetris"
+        android:layout_width="245dp"
+        android:layout_height="480dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.065"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.466">
+
+    </TableLayout>
 </android.support.constraint.ConstraintLayout>

@@ -12,6 +12,7 @@ public class TipoPieza {
     }
 
     public void annadirPosiciones(int x, int y, int pos) {
+
         posiciones[pos] = new Posicion(x, y);
     }
 
