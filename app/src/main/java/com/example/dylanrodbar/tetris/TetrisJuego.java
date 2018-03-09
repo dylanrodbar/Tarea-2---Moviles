@@ -19,8 +19,13 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class TetrisJuego extends AppCompatActivity implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener{
 
+    private Thread hilo;
     private GestureDetectorCompat gestureDetector;
     GridLayout gridLa;
     TableLayout tableLa;
@@ -29,6 +34,8 @@ public class TetrisJuego extends AppCompatActivity implements GestureDetector.On
     private boolean perdido;
     private Espacio matrizBloques[][];
     private Pieza piezaActual;
+    private Timer myTimer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,28 +46,75 @@ public class TetrisJuego extends AppCompatActivity implements GestureDetector.On
         annadirElementosGridLayout();
         this.perdido = false;
         this.matrizBloques = new Espacio[largoMatriz][anchoMatriz];
-        this.piezaActual = new PiezaI();
+        this.piezaActual = new PiezaJ();
         this.piezaActual.asignarValoresBloques();
-        this.piezaActual.cambiarTipoBloque();
+        //this.piezaActual.cambiarTipoBloque();
         inicializarMatrizJuego();
-        asignarMatrizLogica();
-        desasignarMatrizLogica();
-        this.piezaActual.actualizarBloqueBajada();
-        this.piezaActual.actualizarBloqueBajada();
-        this.piezaActual.actualizarBloqueDerecha();
-        this.piezaActual.actualizarBloqueCambioTipoDerecha();
-        this.piezaActual.actualizarBloqueCambioTipoDerecha();
-        this.piezaActual.actualizarBloqueCambioTipoDerecha();
-        this.piezaActual.actualizarBloqueCambioTipoDerecha();
-        this.piezaActual.cambiarTipoBloque();
-        this.piezaActual.cambiarTipoBloque();
-        asignarMatrizLogica();
-        dibujarMatrizLogica();
 
-        Toast.makeText(this, String.valueOf(piezaActual.getYBloque2()),
-                Toast.LENGTH_LONG).show();
-        //juego.generarPieza();
-        //gridLa.getChildAt(20);
+
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                Thread tr = Thread.currentThread();
+                while(true) {
+
+                    if(!validarChoquePiezas()){
+                       //inicializarMatrizJuego();
+                       bajarPieza();
+
+                    }
+                    else {
+                        piezaActual = new PiezaI();
+                        piezaActual.asignarValoresBloques();
+                    }
+
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            dibujarMatrizLogica();
+                            try {
+                                Thread.sleep(10);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+
+                }
+
+            }
+        };
+
+
+
+        Thread t = new Thread(r, "T1");
+        t.start();
+        //bajarPieza();
+        //bajarPieza();
+        //bajarPieza();
+        //bajarPieza();
+        //bajarPieza();
+        //bajarPieza();
+        //bajarPieza();
+
+        //myTimer = new Timer();
+        //mt = new MyTimerTask();
+        //myTimer.schedule(mt, 1000);
+
+        //try {
+        //    hilo = new Thread(new HiloJuego(this));
+        //    hilo.start();
+        //} catch (InterruptedException e) {
+        //    e.printStackTrace();
+        //}
+
 
     }
 
@@ -70,7 +124,15 @@ public class TetrisJuego extends AppCompatActivity implements GestureDetector.On
                 matrizBloques[i][j] = new Espacio();
             }
         }
+
     }
+
+    public void hacerTexto(){
+        Toast toast = Toast.makeText(this, "hola", Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+
 
     public void desasignarMatrizLogica(){
 
@@ -107,11 +169,30 @@ public class TetrisJuego extends AppCompatActivity implements GestureDetector.On
         int rB4 = piezaActual.getXBloque4();
         int cB4 = piezaActual.getYBloque4();
 
-        matrizBloques[rB1][cB1].asignarBloqueAEspacio(piezaActual.getBloque1());
-        matrizBloques[rB2][cB2].asignarBloqueAEspacio(piezaActual.getBloque2());
-        matrizBloques[rB3][cB3].asignarBloqueAEspacio(piezaActual.getBloque3());
-        matrizBloques[rB4][cB4].asignarBloqueAEspacio(piezaActual.getBloque4());
+        matrizBloques[rB1][cB1].asignarBloqueAEspacio(piezaActual.getBloque1(), 1);
+        matrizBloques[rB2][cB2].asignarBloqueAEspacio(piezaActual.getBloque2(), 1);
+        matrizBloques[rB3][cB3].asignarBloqueAEspacio(piezaActual.getBloque3(),1);
+        matrizBloques[rB4][cB4].asignarBloqueAEspacio(piezaActual.getBloque4(), 1);
 
+    }
+
+    public void asignarMatrizLogicaPiezaAcomodada(){
+        int rB1 = piezaActual.getXBloque1();
+        int cB1 = piezaActual.getYBloque1();
+
+        int rB2 = piezaActual.getXBloque2();
+        int cB2 = piezaActual.getYBloque2();
+
+        int rB3 = piezaActual.getXBloque3();
+        int cB3 = piezaActual.getYBloque3();
+
+        int rB4 = piezaActual.getXBloque4();
+        int cB4 = piezaActual.getYBloque4();
+
+        matrizBloques[rB1][cB1].asignarBloqueAEspacio(piezaActual.getBloque1(), 2);
+        matrizBloques[rB2][cB2].asignarBloqueAEspacio(piezaActual.getBloque2(), 2);
+        matrizBloques[rB3][cB3].asignarBloqueAEspacio(piezaActual.getBloque3(),2);
+        matrizBloques[rB4][cB4].asignarBloqueAEspacio(piezaActual.getBloque4(), 2);
     }
 
     public void dibujarMatrizLogica(){
@@ -175,10 +256,51 @@ public class TetrisJuego extends AppCompatActivity implements GestureDetector.On
 
     }
 
-    public void dibujar(){
+    public boolean validarChoquePiezas(){
+        int rB1 = piezaActual.getXBloque1();
+        int cB1 = piezaActual.getYBloque1();
 
+        int rB2 = piezaActual.getXBloque2();
+        int cB2 = piezaActual.getYBloque2();
+
+        int rB3 = piezaActual.getXBloque3();
+        int cB3 = piezaActual.getYBloque3();
+
+        int rB4 = piezaActual.getXBloque4();
+        int cB4 = piezaActual.getYBloque4();
+
+        if(rB1 == 21 || rB2 == 21 || rB3 == 21 || rB4 == 21) return true;
+
+        else if(matrizBloques[rB1+1][cB1].getOcupado()) {
+            if(matrizBloques[rB1+1][cB1].getTipo() == 2) return true;
+        }
+
+        else if(matrizBloques[rB2+1][cB2].getOcupado()) {
+            if(matrizBloques[rB2+1][cB1].getTipo() == 2) return true;
+        }
+
+        else if(matrizBloques[rB3+1][cB3].getOcupado()) {
+            if(matrizBloques[rB3+1][cB3].getTipo() == 2) return true;
+        }
+
+        else if(matrizBloques[rB4+1][cB4].getOcupado()) {
+            if(matrizBloques[rB4+1][cB4].getTipo() == 2) return true;
+        }
+
+        return false;
 
     }
+    public void bajarPieza(){
+        desasignarMatrizLogica();
+        //dibujarMatrizLogica();
+        piezaActual.actualizarBloqueBajada();
+        this.piezaActual.cambiarTipoBloque();
+        asignarMatrizLogica();
+        //dibujarMatrizLogica();
+
+    }
+
+
 
     //En esta función se generará una nueva pieza actual en el juego
     public void generarPieza() {
@@ -192,8 +314,11 @@ public class TetrisJuego extends AppCompatActivity implements GestureDetector.On
     }
 
     public Pieza getPiezaActual(){
+
         return piezaActual;
     }
+
+
 
     //En esta función se evaluará si hay una línea en el juego, de manera que se pueda aumentar el puntaje
     public boolean hayLinea() {
@@ -232,7 +357,7 @@ public class TetrisJuego extends AppCompatActivity implements GestureDetector.On
 
         if(v1 > 500){
             desasignarMatrizLogica();
-            dibujarMatrizLogica();
+            //dibujarMatrizLogica();
             this.piezaActual.actualizarBloqueCambioTipoDerecha();
             this.piezaActual.cambiarTipoBloque();
             asignarMatrizLogica();
@@ -242,10 +367,11 @@ public class TetrisJuego extends AppCompatActivity implements GestureDetector.On
         }
         else{
             desasignarMatrizLogica();
-            dibujarMatrizLogica();
+            //dibujarMatrizLogica();
             this.piezaActual.actualizarBloqueCambioTipoIzquierda();
             this.piezaActual.cambiarTipoBloque();
             asignarMatrizLogica();
+
             dibujarMatrizLogica();
 
         }
@@ -287,7 +413,7 @@ public class TetrisJuego extends AppCompatActivity implements GestureDetector.On
         if (angle > -45 && angle <= 45) {
             desasignarMatrizLogica();
             dibujarMatrizLogica();
-            this.piezaActual.actualizarBloqueDerecha();
+            this.piezaActual.actualizarBloqueDerecha1(9);
             this.piezaActual.cambiarTipoBloque();
             asignarMatrizLogica();
             dibujarMatrizLogica();
@@ -298,7 +424,7 @@ public class TetrisJuego extends AppCompatActivity implements GestureDetector.On
         if (angle >= 135 && angle < 180 || angle < -135 && angle > -180) {
             desasignarMatrizLogica();
             dibujarMatrizLogica();
-            this.piezaActual.actualizarBloqueIzquierda();
+            this.piezaActual.actualizarBloqueIzquierda(0);
             this.piezaActual.cambiarTipoBloque();
             asignarMatrizLogica();
             dibujarMatrizLogica();
@@ -334,4 +460,5 @@ public class TetrisJuego extends AppCompatActivity implements GestureDetector.On
         this.gestureDetector.onTouchEvent(event);
         return super.onTouchEvent(event);
     }
+
 }

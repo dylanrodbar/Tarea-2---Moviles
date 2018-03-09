@@ -7,6 +7,7 @@ package com.example.dylanrodbar.tetris;
 public class Espacio {
     private boolean ocupado;
     private Bloque bloque;
+    private int tipo; //Si es pieza actual o pieza acomodada
 
     public Espacio() {
         this.ocupado = false;
@@ -28,13 +29,19 @@ public class Espacio {
         return bloque;
     }
 
-    public void asignarBloqueAEspacio(Bloque bloque) {
+    public int getTipo(){
+        return tipo;
+    }
+
+    public void asignarBloqueAEspacio(Bloque bloque, int tipo) {
         this.bloque = bloque;
+        this.tipo = tipo;
         setOcupado();
     }
 
     public void desasignarBloqueAEspacio() {
         this.bloque = null;
+        this.tipo = 0;
         setOcupado();
     }
 }

@@ -1,5 +1,7 @@
 package com.example.dylanrodbar.tetris;
 
+import android.util.Log;
+
 /**
  * Created by dylanrodbar on 5/3/2018.
  */
@@ -99,21 +101,49 @@ public abstract class Pieza {
 
 
     /*Método que actualiza el valor x de la pieza en +1*/
-    public void actualizarBloqueDerecha() {
+    public void actualizarBloqueDerecha(int limite) {
         for(int i = 0; i < 4; i++) {
-            for(int j = 0; j < 4; j++) {
-                tipoPiezas[i].getPosiciones()[j].setY(1);
+            if(!hayLimitePieza(limite, i)){
+                for(int j = 0; j < 4; j++) {
+                    tipoPiezas[i].getPosiciones()[j].setY(1);
+                }
 
             }
         }
     }
 
-    /*Método que actualiza el valor y de la pieza en -1*/
-    public void actualizarBloqueIzquierda() {
+
+
+    /*Si hay al menos una pieza en el límite, se retorna true*/
+    public boolean hayLimitePieza(int limite, int fila){
         for(int i = 0; i < 4; i++) {
-            for(int j = 0; j < 4; j++) {
-                tipoPiezas[i].getPosiciones()[j].setY(-1);
+            if(tipoPiezas[fila].getPosiciones()[i].getY() == limite) return true;
+        }
+        return false;
+    }
+
+
+    /*Método que actualiza el valor y de la pieza en -1*/
+    public void actualizarBloqueDerecha1(int limite) {
+        for(int i = 0; i < 4; i++) {
+            if(!hayLimitePieza(limite, i)){
+                for(int j = 0; j < 4; j++) {
+                    tipoPiezas[i].getPosiciones()[j].setY(1);
+                }
             }
+
+        }
+    }
+
+    /*Método que actualiza el valor y de la pieza en -1*/
+    public void actualizarBloqueIzquierda(int limite) {
+        for(int i = 0; i < 4; i++) {
+            if(!hayLimitePieza(limite, i)){
+                for(int j = 0; j < 4; j++) {
+                    tipoPiezas[i].getPosiciones()[j].setY(-1);
+                }
+            }
+
         }
     }
 
